@@ -1,5 +1,4 @@
-import { Link } from 'react-router-dom';
-import './Modal.css';
+import "./Modal.css";
 
 const Modal = ({ isOpen, onClose, title, message }) => {
   if (!isOpen) return null;
@@ -9,13 +8,17 @@ const Modal = ({ isOpen, onClose, title, message }) => {
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <h2>{title}</h2>
-          <button className="modal-close" onClick={onClose}>&times;</button>
+          <button className="modal-close" onClick={onClose}>
+            &times;
+          </button>
         </div>
         <div className="modal-body">
           <p>{message}</p>
         </div>
         <div className="modal-footer">
-          <button className="modal-btn" onClick={onClose}>Cerrar</button>
+          <button className="modal-btn" onClick={onClose}>
+            Cerrar
+          </button>
         </div>
       </div>
     </div>

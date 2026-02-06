@@ -4,36 +4,46 @@
   flex-direction: column;
 }
 
+/* contenedor principal: más ancho para que el texto no corte feo */
 .home-content {
   flex: 1;
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 3rem 2rem;
   width: 100%;
 }
 
+/* HERO */
 .hero-section {
   text-align: left;
-  padding: 4rem 0;
+  padding: 3.2rem 0;
 }
 
 .hero-section h1 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
+  font-size: var(--fs-h1);
+  line-height: var(--lh-tight);
   color: var(--green-primary);
+  margin-bottom: 0.6rem;
 }
 
+/* 👇 clave: NO limitar con ch si querés que llegue “casi hasta la línea” */
 .hero-section p {
-  font-size: 1.2rem;
+  font-size: var(--fs-body);
+  line-height: 1.75;
   color: var(--black-text);
+
+  width: 100%;
+  max-width: none;
+  margin: 0;
 }
 
+/* SECCIONES */
 .intro-section,
 .diferenciador-section,
 .clientes-section,
 .objetivo-section,
 .contacto-cta {
-  padding: 3rem 0;
+  padding: 2.2rem 0;
   border-top: 1px solid #e0e0e0;
 }
 
@@ -42,55 +52,67 @@
 .clientes-section h2,
 .objetivo-section h2,
 .contacto-cta h2 {
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
+  font-size: var(--fs-h2);
+  line-height: var(--lh-tight);
   color: var(--green-primary);
+  margin-bottom: 0.9rem;
 }
 
+/* 👇 clave: sacar max-width en textos para que no corten antes */
 .intro-section p,
-.objetivo-section p {
-  font-size: 1.1rem;
-  line-height: 1.6;
+.objetivo-section p,
+.clientes-section p,
+.contacto-cta p {
+  font-size: var(--fs-body);
+  line-height: 1.75;
   color: var(--black-text);
-  margin-bottom: 1rem;
+
+  width: 100%;
+  max-width: none;
+  margin-bottom: 0.9rem;
 }
 
+/* párrafos “secundarios” en gris */
+.clientes-section p,
+.contacto-cta p {
+  color: var(--gray-text);
+}
+
+/* DIFERENCIADOR */
 .diferenciador-content {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.2rem;
+  margin-top: 1.2rem;
 }
 
+/* si te queda MUY separado, es porque cada item tiene padding de más */
 .diferenciador-item {
-  padding: 1.5rem;
+  padding: 1rem;
   background: transparent;
-  border-radius: 8px;
+  border-radius: 10px;
 }
 
 .diferenciador-item h3 {
-  font-size: 1.3rem;
-  margin-bottom: 1rem;
+  font-size: var(--fs-h3);
   color: var(--green-primary);
+  margin-bottom: 0.35rem;
+  line-height: 1.25;
 }
 
 .diferenciador-item p {
   font-size: 1rem;
-  line-height: 1.5;
+  line-height: 1.65;
   color: var(--black-text);
+  margin: 0;
 }
 
-.clientes-section p {
-  font-size: 1.1rem;
-  color: #666;
-  margin-bottom: 2rem;
-}
-
+/* CLIENTES */
 .clientes-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
+  gap: 1.4rem;
+  margin-top: 1.2rem;
 }
 
 .cliente-item {
@@ -104,8 +126,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 8px;
-  margin-bottom: 1rem;
+  border-radius: 10px;
+  margin-bottom: 0.8rem;
   color: #666;
   font-size: 1rem;
 }
@@ -114,60 +136,71 @@
   width: 100%;
   height: 250px;
   object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 1rem;
+  border-radius: 10px;
+  margin-bottom: 0.8rem;
 }
 
 .cliente-item h3 {
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+  margin-bottom: 0.3rem;
   color: var(--black-text);
 }
 
 .cliente-item p {
-  font-size: 0.9rem;
-  color: #666;
+  font-size: 0.95rem;
+  color: var(--gray-text);
+  margin: 0;
 }
 
+/* CTA: dejala alineada a izquierda (coherente con el resto) */
 .contacto-cta {
-  text-align: center;
+  text-align: left;
 }
 
-.contacto-cta p {
-  font-size: 1.1rem;
-  color: #666;
-  margin-bottom: 2rem;
-}
-
+/* ✅ opción A: botón */
 .btn-contacto {
   display: inline-block;
-  padding: 1rem 3rem;
+  padding: 0.9rem 2.4rem;
   background: var(--green-primary);
   color: white;
   text-decoration: none;
-  border-radius: 5px;
-  font-size: 1.1rem;
-  font-weight: 500;
-  transition: background 0.3s;
-}
-
-
-.btn-contacto:hover {
-  background: var(--green-hover);
-  color: white;              /* ← ESTA ES LA CLAVE */
-  transform: translateY(-1px);
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
 }
 
+.btn-contacto:hover {
+  background: var(--green-hover);
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.14);
+}
 
+/* ✅ opción B (si querés NO botón): link “acá” */
+.cta-link {
+  color: var(--green-primary);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.cta-link:hover {
+  color: var(--green-hover);
+}
 
 @media (max-width: 768px) {
-  .hero-section h1 {
-    font-size: 2rem;
+  .home-content {
+    padding: 2.2rem 1.2rem;
   }
-  
-  .hero-section p {
-    font-size: 1rem;
+
+  .hero-section {
+    padding: 2.6rem 0;
+  }
+
+  .hero-section h1 {
+    font-size: 1.75rem;
   }
 
   .intro-section h2,
@@ -175,11 +208,15 @@
   .clientes-section h2,
   .objetivo-section h2,
   .contacto-cta h2 {
-    font-size: 1.6rem;
+    font-size: 1.35rem;
   }
 
   .diferenciador-content,
   .clientes-grid {
     grid-template-columns: 1fr;
+  }
+
+  .contacto-cta {
+    text-align: left;
   }
 }

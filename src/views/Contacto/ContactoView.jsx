@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import emailjs from "@emailjs/browser"; // opcional
 
 import Navbar from "../../components/common/NavBar/Navbar";
 import Footer from "../../components/common/Footer/Footer";
@@ -37,7 +36,6 @@ function ContactoView() {
   });
 
   useEffect(() => {
-    // Limpia estado redux cuando salís de la página
     return () => {
       dispatch(resetContactState());
     };
@@ -77,7 +75,6 @@ function ContactoView() {
       return;
     }
 
-    // ✅ 1) Mandar a tu API (portfolio fullstack)
     const action = await dispatch(sendContact(formData));
 
     if (sendContact.fulfilled.match(action)) {
@@ -99,9 +96,6 @@ function ContactoView() {
       return;
     }
 
-    // (Opcional) 2) fallback emailjs si aún no hay backend
-    // Si querés este fallback, lo armamos con variables .env y sin hardcodear keys.
-
     setModalContent({
       title: "Error",
       message:
@@ -122,6 +116,7 @@ function ContactoView() {
         </p>
 
         <form onSubmit={handleSubmit} className="contacto-form">
+          {/* Row 1 */}
           <div className="form-row">
             <div className="form-group">
               <label htmlFor="nombre">
@@ -157,6 +152,7 @@ function ContactoView() {
             </div>
           </div>
 
+          {/* Row 2 */}
           <div className="form-row">
             <div className="form-group">
               <label htmlFor="email">
@@ -187,6 +183,7 @@ function ContactoView() {
             </div>
           </div>
 
+          {/* Row 3 */}
           <div className="form-row">
             <div className="form-group">
               <label htmlFor="telefono">
@@ -202,6 +199,12 @@ function ContactoView() {
               />
             </div>
 
+            {/* columna vacía para mantener grilla alineada */}
+            <div className="form-group" />
+          </div>
+
+          {/* Row 4: Mensaje abajo full width */}
+          <div className="form-row">
             <div className="form-group full-width">
               <label htmlFor="mensaje">
                 Mensaje <span className="required">*</span>
@@ -211,7 +214,7 @@ function ContactoView() {
                 name="mensaje"
                 value={formData.mensaje}
                 onChange={handleChange}
-                rows="5"
+                rows="6"
                 required
               />
             </div>

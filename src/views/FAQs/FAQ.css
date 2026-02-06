@@ -13,11 +13,10 @@
 }
 
 .faq-content h1 {
-  text-align: left;
-  color: var(--green-primary);
-  font-size: 2.5rem;
-  margin-bottom: 3rem;
+  font-size: var(--fs-h1);
+  line-height: var(--lh-tight);
 }
+
 
 .faq-list {
   display: flex;
@@ -36,11 +35,9 @@
 }
 
 .faq-item h3 {
-  color: var(--green-primary);
-  margin-bottom: 0.8rem;
-  font-size: 1.2rem;
-  font-weight: 600;
+  font-size: var(--fs-h3);
 }
+
 
 .faq-item p {
   color: var(--gray-text);
@@ -48,9 +45,8 @@
   margin: 0;
 }
 
-.faq-item {
-  padding: 2rem 0;
-}
+.faq-item { padding: 1.5rem 0; }
+
 
 .faq-divider {
   width: 100%;

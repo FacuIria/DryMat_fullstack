@@ -7,8 +7,21 @@
   --gray-text: #4A4A4A;
   --white-soft: #FAFAF7;
 
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  line-height: 1.6;
+  /* Escala tipográfica (proporciones) */
+  --fs-navbar: 1.65rem;
+
+  --fs-h1: 2.05rem;
+  --fs-h2: 1.55rem;
+  --fs-h3: 1.2rem;
+
+  --fs-body: 1.05rem;
+  --fs-small: 0.95rem;
+
+  --lh-tight: 1.2;
+  --lh-normal: 1.6;
+
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  line-height: var(--lh-normal);
   font-weight: 400;
   color: var(--black-text);
   background-color: var(--beige-bg);
@@ -58,11 +71,16 @@ button {
 button:hover {
   background-color: var(--green-hover);
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+/* Si querés que el tema SIEMPRE sea DryMat, podés borrar este bloque.
+   Lo dejo comentado porque a veces te cambia a blanco/azul según el sistema. */
+
+/*
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -74,4 +92,17 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+*/
+/* ===== Tipografía global DryMat ===== */
+h1, h2, h3 {
+  color: var(--green-primary);
+}
+
+/* Subtítulos / textos secundarios */
+p.subtitle,
+.contacto-subtitle,
+.contacto-cta p,
+.clientes-section p {
+  color: var(--gray-text);
 }
