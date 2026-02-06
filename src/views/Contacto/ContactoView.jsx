@@ -1,44 +1,54 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import emailjs from '@emailjs/browser';
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+// import emailjs from "@emailjs/browser"; // opcional
 
-import Navbar from '../../components/common/NavBar/Navbar';
-import Footer from '../../components/common/Footer/Footer';
-import Modal from '../../components/common/Modal/Modal';
-import WhatsappButton from '../../components/common/WhatsappButton/whatsappButton';
+import Navbar from "../../components/common/NavBar/Navbar";
+import Footer from "../../components/common/Footer/Footer";
+import Modal from "../../components/common/Modal/Modal";
+import WhatsappButton from "../../components/common/WhatsappButton/whatsappButton";
 
-import './ContactoView.css';
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { resetContactState, sendContact } from "../../store/slices/contactSlice";
+
+import "./ContactoView.css";
 
 function ContactoView() {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const contactState = useAppSelector((s) => s.contact) || {};
+  const sendStatus = contactState.status || "idle";
+  const sendError = contactState.error || null;
 
   const [formData, setFormData] = useState({
-    nombre: '',
-    email: '',
-    telefono: '',
-    motivo: 'Contacto general',
-    asunto: '',
-    mensaje: ''
+    nombre: "",
+    email: "",
+    telefono: "",
+    motivo: "Contacto general",
+    asunto: "",
+    mensaje: "",
   });
 
   const [modalOpen, setModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState({
-    title: '',
-    message: '',
-    isSuccess: false
+    title: "",
+    message: "",
+    isSuccess: false,
   });
+
+  useEffect(() => {
+    // Limpia estado redux cuando salís de la página
+    return () => {
+      dispatch(resetContactState());
+    };
+  }, [dispatch]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value
-    }));
+    setFormData((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const validate = () => {
     if (
       !formData.nombre.trim() ||
       !formData.email.trim() ||
@@ -46,68 +56,59 @@ function ContactoView() {
       !formData.asunto.trim() ||
       !formData.mensaje.trim()
     ) {
-      setModalContent({
-        title: 'Error',
-        message: 'Por favor, completá todos los campos obligatorios.',
-        isSuccess: false
-      });
-      setModalOpen(true);
-      return;
+      return "Por favor, completá todos los campos obligatorios.";
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
-      setModalContent({
-        title: 'Error',
-        message: 'Por favor, ingresá un email válido.',
-        isSuccess: false
-      });
+      return "Por favor, ingresá un email válido.";
+    }
+
+    return null;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const validationError = validate();
+    if (validationError) {
+      setModalContent({ title: "Error", message: validationError, isSuccess: false });
       setModalOpen(true);
       return;
     }
 
-    const templateParams = {
-      from_name: formData.nombre,
-      from_email: formData.email,
-      phone: formData.telefono,
-      subject: formData.asunto,
-      motivo: formData.motivo,
-      message: formData.mensaje,
-      to_email: 'Drymatsoluciones@gmail.com'
-    };
+    // ✅ 1) Mandar a tu API (portfolio fullstack)
+    const action = await dispatch(sendContact(formData));
 
-    try {
-      await emailjs.send(
-        'YOUR_SERVICE_ID',
-        'YOUR_TEMPLATE_ID',
-        templateParams,
-        'YOUR_PUBLIC_KEY'
-      );
-
+    if (sendContact.fulfilled.match(action)) {
       setModalContent({
-        title: 'Éxito',
-        message: 'Mensaje enviado con éxito',
-        isSuccess: true
+        title: "Éxito",
+        message: "Mensaje enviado con éxito",
+        isSuccess: true,
       });
       setModalOpen(true);
 
       setFormData({
-        nombre: '',
-        email: '',
-        telefono: '',
-        motivo: 'Contacto general',
-        asunto: '',
-        mensaje: ''
+        nombre: "",
+        email: "",
+        telefono: "",
+        motivo: "Contacto general",
+        asunto: "",
+        mensaje: "",
       });
-    } catch (error) {
-      setModalContent({
-        title: 'Error',
-        message:
-          'Hubo un problema al enviar tu mensaje. Por favor, intentá nuevamente o contactanos directamente a Drymatsoluciones@gmail.com',
-        isSuccess: false
-      });
-      setModalOpen(true);
+      return;
     }
+
+    // (Opcional) 2) fallback emailjs si aún no hay backend
+    // Si querés este fallback, lo armamos con variables .env y sin hardcodear keys.
+
+    setModalContent({
+      title: "Error",
+      message:
+        "Hubo un problema al enviar tu mensaje. Probá nuevamente en unos minutos o escribinos por WhatsApp.",
+      isSuccess: false,
+    });
+    setModalOpen(true);
   };
 
   return (
@@ -212,26 +213,31 @@ function ContactoView() {
                 onChange={handleChange}
                 rows="5"
                 required
-              ></textarea>
+              />
             </div>
           </div>
 
           <div className="form-actions">
-            <button type="submit" className="btn-submit">
-              Enviar Mensaje
+            <button type="submit" className="btn-submit" disabled={sendStatus === "loading"}>
+              {sendStatus === "loading" ? "Enviando..." : "Enviar Mensaje"}
             </button>
           </div>
+
+          {sendStatus === "failed" && (
+            <div style={{ marginTop: "1rem", opacity: 0.85 }}>
+              Error: {sendError}
+            </div>
+          )}
         </form>
       </div>
+
       <WhatsappButton />
 
       <Modal
         isOpen={modalOpen}
         onClose={() => {
           setModalOpen(false);
-          if (modalContent.isSuccess) {
-            navigate('/');
-          }
+          if (modalContent.isSuccess) navigate("/");
         }}
         title={modalContent.title}
         message={modalContent.message}
