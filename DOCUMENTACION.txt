@@ -1,0 +1,264 @@
+================================================================================
+                        DOCUMENTACIÓN DEL PROYECTO DRYMAT
+================================================================================
+Fecha de creación: 18 de diciembre de 2025
+Versión: 0.0.0
+
+================================================================================
+1. INFORMACIÓN GENERAL
+================================================================================
+
+Nombre del Proyecto: DryMat
+Tipo: Aplicación Web Frontend
+Propósito: Solución profesional para servicios relacionados con yerba mate
+
+================================================================================
+2. TECNOLOGÍAS UTILIZADAS
+================================================================================
+
+Framework Principal:
+- React 19.2.0
+- React DOM 19.2.0
+
+Enrutamiento:
+- React Router DOM 7.11.0
+
+Bundler & Desarrollo:
+- Vite 7.2.4
+- @vitejs/plugin-react 5.1.1
+
+Herramientas de Calidad de Código:
+- ESLint 9.39.1
+- eslint-plugin-react-hooks 7.0.1
+- eslint-plugin-react-refresh 0.4.24
+
+================================================================================
+3. PALETA DE COLORES
+================================================================================
+
+VERDES (Principal):
+- Verde primario: #7FB77E
+  Uso: Botones, links, acciones principales
+  
+- Verde hover: #5F8D4E
+  Uso: Estados de interacción (hover, active)
+
+BEIGES (Fondos):
+- Beige fondo principal: #F5F1E8
+  Uso: Fondo general de la aplicación
+  
+- Beige cards: #E6DDC4
+  Uso: Tarjetas, contenedores destacados
+
+NEUTROS (Textos y elementos):
+- Negro textos: #1C1C1C
+  Uso: Textos principales
+  
+- Gris textos: #4A4A4A
+  Uso: Textos secundarios, descripción
+  
+- Blanco suave: #FAFAF7
+  Uso: Fondos alternativos, elementos claros
+
+================================================================================
+4. ESTRUCTURA DEL PROYECTO
+================================================================================
+
+DryMat_client/
+│
+├── public/                    # Archivos públicos estáticos
+│
+├── src/
+│   ├── App.jsx               # Componente principal con routing
+│   ├── App.css               # Estilos globales de la app
+│   ├── main.jsx              # Punto de entrada de React
+│   ├── index.css             # Estilos base y variables CSS
+│   │
+│   ├── components/
+│   │   └── common/
+│   │       ├── Navbar.jsx    # Barra de navegación
+│   │       ├── Navbar.css
+│   │       ├── Footer.jsx    # Pie de página
+│   │       └── Footer.css
+│   │
+│   └── views/
+│       ├── HomeView.jsx      # Vista principal (Home)
+│       ├── HomeView.css
+│       ├── FAQ.jsx           # Vista de preguntas frecuentes
+│       └── FAQ.css
+│
+├── eslint.config.js          # Configuración de ESLint
+├── vite.config.js            # Configuración de Vite
+├── package.json              # Dependencias y scripts
+├── index.html                # HTML principal
+└── README.md                 # Documentación del template
+
+================================================================================
+5. COMPONENTES PRINCIPALES
+================================================================================
+
+5.1. App.jsx
+------------
+- Componente raíz de la aplicación
+- Configura el enrutador (BrowserRouter)
+- Define las rutas principales:
+  * "/" -> HomeView
+  * "/faq" -> FAQ
+
+5.2. Navbar
+-----------
+Ubicación: src/components/common/Navbar.jsx
+
+Características:
+- Barra de navegación fija en la parte superior
+- Logo placeholder (preparado para logo futuro)
+- Marca "DryMat" con enlace a home
+- Diseño responsive
+
+5.3. Footer
+-----------
+Ubicación: src/components/common/Footer.jsx
+
+Estructura (3 columnas):
+
+Columna 1 - Redes Sociales:
+  - Instagram: https://www.instagram.com/drymat
+  - Icono SVG integrado
+
+Columna 2 - Enlaces Rápidos:
+  - Volver a Inicio
+  - FAQs
+
+Columna 3 - Contacto:
+  - Email: contacto@drymat.com.ar
+  - Teléfono: +54 11 7620-5555
+  - Ubicación: Buenos Aires, Argentina
+  - Todos con iconos SVG
+
+Footer Bottom:
+  - Copyright dinámico con año actual
+
+================================================================================
+6. VISTAS (PAGES)
+================================================================================
+
+6.1. HomeView
+-------------
+Ruta: "/"
+Archivo: src/views/HomeView.jsx
+
+Contenido:
+- Navbar
+- Sección Hero con:
+  * Título: "Bienvenido a DryMat"
+  * Subtítulo: "Tu solución profesional"
+- Footer
+
+6.2. FAQ (Preguntas Frecuentes)
+--------------------------------
+Ruta: "/faq"
+Archivo: src/views/FAQ.jsx
+
+Contenido:
+- Navbar
+- Título: "Preguntas Frecuentes"
+- Lista de FAQs (3 preguntas):
+  1. ¿Qué es DryMat?
+  2. ¿Cómo puedo contactarlos?
+  3. ¿Dónde están ubicados?
+- Footer
+
+================================================================================
+7. ESTILOS Y DISEÑO
+================================================================================
+
+7.1. Variables CSS Globales (index.css)
+----------------------------------------
+Las variables de color están definidas en :root y son accesibles
+globalmente en toda la aplicación mediante var(--nombre-variable)
+
+Ejemplo:
+  background-color: var(--beige-bg);
+  color: var(--green-primary);
+
+7.2. Tipografía
+---------------
+- Familia: System UI, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto
+- Line-height: 1.6
+- Font-weight: 400 (regular)
+- Text-rendering: optimizeLegibility
+- Antialiasing optimizado para ambos navegadores
+
+7.3. Botones
+------------
+- Border-radius: 8px
+- Padding: 0.8em 1.5em
+- Font-size: 1em
+- Font-weight: 500
+- Sin bordes (border: none)
+
+7.4. Enlaces
+------------
+- Color: var(--green-primary)
+- Sin subrayado
+- Transición suave en hover (0.3s ease)
+- Color hover: var(--green-hover)
+
+================================================================================
+8. SCRIPTS DISPONIBLES
+================================================================================
+
+npm run dev
+-----------
+Inicia el servidor de desarrollo de Vite
+URL: http://localhost:5173 (por defecto)
+
+npm run build
+-------------
+Genera la versión de producción optimizada
+Output: carpeta dist/
+
+npm run lint
+------------
+Ejecuta ESLint para revisar el código
+Verifica errores y warnings de código
+
+npm run preview
+---------------
+Previsualiza la versión de producción localmente
+Requiere haber ejecutado 'npm run build' primero
+
+================================================================================
+9. INFORMACIÓN DE CONTACTO
+================================================================================
+
+Email: contacto@drymat.com.ar
+Teléfono: +54 11 7620-5555
+Instagram: @drymat
+Ubicación: Buenos Aires, Argentina
+
+================================================================================
+10. PRÓXIMOS PASOS / PENDIENTES
+================================================================================
+
+- [ ] Agregar logo de DryMat
+- [ ] Expandir contenido de HomeView
+- [ ] Agregar más páginas según sea necesario
+- [ ] Implementar formulario de contacto
+- [ ] Agregar más secciones de contenido
+- [ ] Optimizar imágenes y recursos
+- [ ] Configurar deployment
+
+================================================================================
+11. NOTAS TÉCNICAS
+================================================================================
+
+- El proyecto usa React 19.2.0 (última versión)
+- Vite proporciona Hot Module Replacement (HMR)
+- ESLint configurado con reglas para React
+- Proyecto configurado como módulo ES6 (type: "module")
+- Proyecto privado (no publicable en npm)
+
+================================================================================
+                            FIN DE LA DOCUMENTACIÓN
+================================================================================

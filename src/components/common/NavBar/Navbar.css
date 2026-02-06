@@ -1,0 +1,84 @@
+.navbar {
+  background-color: var(--green-primary);
+  padding: 1.5rem 0;
+}
+
+/* CONTENEDOR */
+.navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+/* LOGO + TEXTO (ES UN LINK) */
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  text-decoration: none; /* saca subrayado del link */
+  color: white;
+}
+
+/* IMAGEN DEL LOGO */
+.navbar-logo-img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
+/* TEXTO DryMat */
+.navbar-brand {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: white;
+}
+
+/* HOVER SUTIL */
+.navbar-logo:hover {
+  opacity: 0.9;
+}
+
+/* (si en el futuro agregás links) */
+.navbar-menu {
+  display: flex;
+  gap: 2rem;
+}
+
+.navbar-link {
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: opacity 0.2s ease;
+  padding: 0.5rem 1rem;
+}
+
+.navbar-link:hover {
+  opacity: 0.8;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .navbar-container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .navbar-logo-img {
+    width: 42px;
+    height: 42px;
+  }
+
+  .navbar-brand {
+    font-size: 1.3rem;
+  }
+
+  .navbar-menu {
+    gap: 1rem;
+  }
+}
